@@ -27,9 +27,6 @@ class Addon {
 }
 
 enum FoodCategory {
-  nasi_kandar,
-  masakan_panas,
+  nasi,
   minuman,
-  roti,
-  sup,
 }

@@ -13,13 +13,15 @@ class CustomSliverAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SliverAppBar(
-      expandedHeight: 380,
+      snap: false,
+      centerTitle: true,
+      expandedHeight: 300,
       collapsedHeight: 120,
       floating: false,
       pinned: true,
       actions: [
         // Icon button
-        IconButton(onPressed: () {}, icon: Icon(Icons.shopping_cart))
+        IconButton(onPressed: () {}, icon: const Icon(Icons.shopping_cart))
       ],
       backgroundColor: Theme.of(context).colorScheme.surface,
       foregroundColor: Theme.of(context).colorScheme.inversePrimary,

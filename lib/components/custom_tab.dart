@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:food_delivery_kandarbite/models/food.dart';
 
 class CustomTab extends StatelessWidget {
   const CustomTab({
@@ -7,23 +8,22 @@ class CustomTab extends StatelessWidget {
   });
   final TabController tabController;
 
+  List<Tab> _buildCategoryTab() {
+    return FoodCategory.values.map((category) {
+      return Tab(
+        text: category.toString().split('.').last,
+      );
+    }).toList();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return TabBar(
-      tabs: const [
-        // 1st tab
-        Tab(
-          icon: Icon(Icons.home),
-        ),
-        // 2nd Tab
-        Tab(
-          icon: Icon(Icons.settings),
-        ),
-        Tab(
-          icon: Icon(Icons.person),
-        ),
-      ],
-      controller: tabController,
+    return Container(
+      // color: Theme.of(context).colorScheme.surface,
+      child: TabBar(
+        tabs: _buildCategoryTab(),
+        controller: tabController,
+      ),
     );
   }
 }
