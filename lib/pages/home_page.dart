@@ -7,6 +7,7 @@ import 'package:food_delivery_kandarbite/components/custom_tab.dart';
 import 'package:food_delivery_kandarbite/components/food_tile.dart';
 import 'package:food_delivery_kandarbite/models/food.dart';
 import 'package:food_delivery_kandarbite/models/restaurant.dart';
+import 'package:food_delivery_kandarbite/pages/food_page.dart';
 import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
@@ -45,7 +46,13 @@ class _HomePageState extends State<HomePage>
       return ListView.builder(
         itemBuilder: (context, index) {
           final food = categoryMenu[index];
-          return FoodTile(onTap: () {}, food: food);
+          return FoodTile(
+              onTap: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => FoodPage(food: food),
+                ));
+              },
+              food: food);
         },
         itemCount: categoryMenu.length,
         physics: const NeverScrollableScrollPhysics(),
@@ -57,15 +64,15 @@ class _HomePageState extends State<HomePage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: CustomDrawer(),
+      drawer: const CustomDrawer(),
       body: NestedScrollView(
         headerSliverBuilder: (context, innerBoxIsScrolled) => [
           CustomSliverAppBar(
-            child: Column(
+            child: const Column(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 // Current Location
-                CurrentLocation(),
+                const CurrentLocation(),
                 // Description Box
                 CustomDescriptionBox(),
               ],

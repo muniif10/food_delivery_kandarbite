@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:food_delivery_kandarbite/auth/login_or_register.dart';
 import 'package:food_delivery_kandarbite/components/custom_drawer_tile.dart';
 import 'package:food_delivery_kandarbite/pages/setting_page.dart';
 
@@ -41,7 +42,11 @@ class CustomDrawer extends StatelessWidget {
               icon: Icons.settings,
               onTap: () {
                 Navigator.pop(context);
-                Navigator.push(context,MaterialPageRoute(builder: (context) => SettingPage(),));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => SettingPage(),
+                    ));
               },
             ),
             const Spacer(),
@@ -49,7 +54,11 @@ class CustomDrawer extends StatelessWidget {
             CustomerDrawerTile(
               text: "LOGOUT",
               icon: Icons.logout,
-              onTap: () {},
+              onTap: () {
+                Navigator.of(context).pushReplacement(MaterialPageRoute(
+                  builder: (context) => LoginOrRegister(),
+                ));
+              },
             ),
             const SizedBox(
               height: 25,

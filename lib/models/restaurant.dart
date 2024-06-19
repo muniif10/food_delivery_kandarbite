@@ -1,4 +1,6 @@
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
+import 'package:food_delivery_kandarbite/models/cart_item.dart';
 import 'package:food_delivery_kandarbite/models/food.dart';
 
 class Restaurant extends ChangeNotifier {
@@ -42,8 +44,7 @@ class Restaurant extends ChangeNotifier {
         ]),
     Food(
         name: "Milo",
-        description:
-            "Well cooked rice, paired with juicy friend chicken, and everything bathed in variety of tasty and aromatic 'kuah'",
+        description: "Air milo, apa lagi hang nak poen",
         imagePath: "lib/assets/images/drinks/milo_ais.jpeg",
         price: 3,
         category: FoodCategory.minuman,
@@ -55,17 +56,82 @@ class Restaurant extends ChangeNotifier {
 
 // Getters
   List<Food> get menu => _menu;
+  List<CartItem> get cart => _cart;
 
 // Operations
+
+// User Cart
+  final List<CartItem> _cart = [];
+
 // Add to cart
+  void addToCart(Food food, List<Addon> selectedAddons) {
+    // See if there is already item in the cart with the same food and selected addons
+    CartItem? cartItem = _cart.firstWhereOrNull((item) {
+      // check if item same
+      bool isSameFood = item.food == food;
+      // check if selected addon same
+      bool isSameAddon =
+          ListEquality().equals(item.selectedAddons, selectedAddons);
+
+      return isSameFood && isSameAddon;
+    });
+    // If item already exist,
+    if (cartItem != null) {
+      cartItem.quantity++;
+    }
+    // Else add item to cart
+    else {
+      _cart.add(CartItem(
+        food: food,
+        selectedAddons: selectedAddons,
+      ));
+    }
+    notifyListeners();
+  }
 
 // Remove from cart
+  void removeFromCart(CartItem cartItem) {
+    int cartIndex = _cart.indexOf(cartItem);
+
+    if (cartIndex != -1) {
+      if (_cart[cartIndex].quantity > 1) {
+        _cart[cartIndex].quantity--;
+      } else {
+        _cart.removeAt(cartIndex);
+      }
+    }
+    notifyListeners();
+  }
 
 // get total price of cart
+  double getTotalPrice() {
+    double total = 0.0;
+
+    for (CartItem cartItem in _cart) {
+      double itemTotal = cartItem.food.price;
+
+      for (Addon addon in cartItem.selectedAddons) {
+        itemTotal += addon.price;
+      }
+      total += itemTotal * cartItem.quantity;
+    }
+    return total;
+  }
 
 // get total number of item
+  int getTotalNumberOfItem(_cart) {
+    int itemTotalCount = 0;
+    for (CartItem cartItem in _cart) {
+      itemTotalCount += cartItem.quantity;
+    }
+    return itemTotalCount;
+  }
 
 // clear cart
+  void clearCart() {
+    _cart.clear();
+    notifyListeners();
+  }
 // Helpers
 
   // format stuff
