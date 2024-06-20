@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:food_delivery_kandarbite/components/custom_button.dart';
 import 'package:food_delivery_kandarbite/components/custom_textfield.dart';
 import 'package:food_delivery_kandarbite/pages/home_page.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPage extends StatefulWidget {
   final Function() onTap;
@@ -65,7 +66,10 @@ class _LoginPageState extends State<LoginPage> {
               height: 25,
             ),
             // Sign In
-            CustomButton(onTap: login, text: "Sign In"),
+            CustomButton(
+              onTap: login,
+              text: "Sign In",
+            ),
 
             const SizedBox(
               height: 25,

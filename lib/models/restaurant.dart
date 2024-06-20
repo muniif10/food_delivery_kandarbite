@@ -2,6 +2,7 @@ import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:food_delivery_kandarbite/models/cart_item.dart';
 import 'package:food_delivery_kandarbite/models/food.dart';
+import 'package:intl/intl.dart';
 
 class Restaurant extends ChangeNotifier {
   // List of food menu
@@ -119,7 +120,7 @@ class Restaurant extends ChangeNotifier {
   }
 
 // get total number of item
-  int getTotalNumberOfItem(_cart) {
+  int getTotalNumberOfItem() {
     int itemTotalCount = 0;
     for (CartItem cartItem in _cart) {
       itemTotalCount += cartItem.quantity;
@@ -134,5 +135,41 @@ class Restaurant extends ChangeNotifier {
   }
 // Helpers
 
+// Generate receipt
+  String displayCartReceipt() {
+    final receipt = StringBuffer();
+    receipt.writeln("Here's your receipt.");
+    receipt.writeln();
+
+    String formattedDate =
+        DateFormat('HH:mm:ss dd-MM-yyyy').format(DateTime.now());
+    receipt.writeln(formattedDate);
+    receipt.writeln();
+    receipt.writeln("------- Item --------");
+
+    for (final cartItem in _cart) {
+      receipt.writeln(
+          "${cartItem.quantity} x ${cartItem.food.name} (RM${cartItem.food.price})");
+      if (cartItem.selectedAddons.isNotEmpty) {
+        receipt.writeln("Add-ons ${_formatAddon(cartItem.selectedAddons)}");
+      }
+      receipt.writeln();
+    }
+    receipt.writeln("------- Summary --------");
+    receipt.writeln("Total number of item: ${getTotalNumberOfItem()}");
+    receipt.writeln("Total Items: ${_formatPrice(getTotalPrice())}");
+    return receipt.toString();
+  }
+
   // format stuff
+
+  String _formatPrice(double price) {
+    return "RM${price.toStringAsFixed(2)}";
+  }
+
+  String _formatAddon(List<Addon> addons) {
+    return addons
+        .map((addon) => "\n${addon.name} (${_formatPrice(addon.price)})")
+        .join();
+  }
 }
