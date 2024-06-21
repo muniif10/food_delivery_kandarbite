@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:food_delivery_kandarbite/pages/past_orders.dart';
 import 'package:food_delivery_kandarbite/service/auth/auth_service.dart';
 import 'package:food_delivery_kandarbite/service/auth/login_or_register.dart';
 import 'package:food_delivery_kandarbite/components/custom_drawer_tile.dart';
@@ -67,6 +68,18 @@ class _CustomDrawerState extends State<CustomDrawer> {
                     context,
                     MaterialPageRoute(
                       builder: (context) => SettingPage(),
+                    ));
+              },
+            ),
+            CustomerDrawerTile(
+              text: "PAST ORDERS",
+              icon: Icons.history,
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => PastOrdersPage(),
                     ));
               },
             ),

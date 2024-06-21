@@ -48,7 +48,7 @@ class CurrentLocation extends StatelessWidget {
                 // Address
                 Flexible(
                   child: Text(
-                    "Jalan Kristal 7/70, Seksyen 7, 40000 Shah Alam, Selangor",
+                    "Menara LGB, Level 16, 1, Jalan Wan Kadir, Taman Tun Dr Ismail, 60000 Kuala Lumpur",
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       color: Theme.of(context).colorScheme.inversePrimary,

@@ -12,4 +12,11 @@ class FirestoreService {
       'user': username,
     });
   }
+
+  Future<List<Map<String, String>>> getOrders(String email) async {
+    QuerySnapshot ordersObtained =
+        await orders.where('email', isEqualTo: email).get();
+    List<QueryDocumentSnapshot> docs = ordersObtained.docs;
+    return docs.map((doc) => doc.data() as Map<String, String>).toList();
+  }
 }
