@@ -20,8 +20,8 @@ class CurrentLocation extends StatelessWidget {
             child: const Text("Submit"),
           )
         ],
-        title: Text("Your location"),
-        content: TextField(
+        title: const Text("Your location"),
+        content: const TextField(
           decoration: InputDecoration(hintText: "Search address..."),
         ),
       ),
@@ -46,16 +46,18 @@ class CurrentLocation extends StatelessWidget {
             child: Row(
               children: [
                 // Address
-                Text(
-                  "UPM, KOlej 2323323",
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: Theme.of(context).colorScheme.inversePrimary,
+                Flexible(
+                  child: Text(
+                    "Jalan Kristal 7/70, Seksyen 7, 40000 Shah Alam, Selangor",
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Theme.of(context).colorScheme.inversePrimary,
+                    ),
                   ),
                 ),
 
                 // Dropdown
-                Icon(Icons.keyboard_arrow_down_rounded),
+                const Icon(Icons.keyboard_arrow_down_rounded),
               ],
             ),
           )

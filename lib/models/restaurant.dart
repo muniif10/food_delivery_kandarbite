@@ -138,7 +138,7 @@ class Restaurant extends ChangeNotifier {
 // Generate receipt
   String displayCartReceipt() {
     final receipt = StringBuffer();
-    receipt.writeln("Here's your receipt.");
+    receipt.writeln("KandarBite Receipt");
     receipt.writeln();
 
     String formattedDate =
@@ -146,7 +146,7 @@ class Restaurant extends ChangeNotifier {
     receipt.writeln(formattedDate);
     receipt.writeln();
     receipt.writeln("------- Item --------");
-
+  
     for (final cartItem in _cart) {
       receipt.writeln(
           "${cartItem.quantity} x ${cartItem.food.name} (RM${cartItem.food.price})");

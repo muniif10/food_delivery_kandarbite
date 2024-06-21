@@ -1,12 +1,17 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:food_delivery_kandarbite/auth/login_or_register.dart';
+import 'package:food_delivery_kandarbite/service/auth/auth_gate.dart';
+import 'package:food_delivery_kandarbite/service/auth/login_or_register.dart';
+import 'package:food_delivery_kandarbite/firebase_options.dart';
 import 'package:food_delivery_kandarbite/models/restaurant.dart';
 import 'package:food_delivery_kandarbite/pages/intro_page.dart';
 import 'package:food_delivery_kandarbite/themes/theme_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(MultiProvider(
     providers: [
       ChangeNotifierProvider(
@@ -54,7 +59,7 @@ class _MainAppState extends State<MainApp> {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         body: Center(
-          child: isFirstTime ? IntroPage() : LoginOrRegister(),
+          child: isFirstTime ? const IntroPage() : const AuthGate(),
         ),
       ),
       theme: Provider.of<ThemeProvider>(context).themeData,

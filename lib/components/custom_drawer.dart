@@ -1,10 +1,31 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:food_delivery_kandarbite/auth/login_or_register.dart';
+import 'package:food_delivery_kandarbite/service/auth/auth_service.dart';
+import 'package:food_delivery_kandarbite/service/auth/login_or_register.dart';
 import 'package:food_delivery_kandarbite/components/custom_drawer_tile.dart';
 import 'package:food_delivery_kandarbite/pages/setting_page.dart';
 
-class CustomDrawer extends StatelessWidget {
+class CustomDrawer extends StatefulWidget {
   const CustomDrawer({super.key});
+
+  @override
+  State<CustomDrawer> createState() => _CustomDrawerState();
+}
+
+class _CustomDrawerState extends State<CustomDrawer> {
+  void logout() async {
+    final _authService = AuthService();
+    try {
+      _authService.signOut();
+    } on FirebaseAuthException catch (e) {
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text(e.toString()),
+        ),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -54,11 +75,7 @@ class CustomDrawer extends StatelessWidget {
             CustomerDrawerTile(
               text: "LOGOUT",
               icon: Icons.logout,
-              onTap: () {
-                Navigator.of(context).pushReplacement(MaterialPageRoute(
-                  builder: (context) => LoginOrRegister(),
-                ));
-              },
+              onTap: logout,
             ),
             const SizedBox(
               height: 25,

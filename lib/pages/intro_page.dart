@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:food_delivery_kandarbite/auth/login_or_register.dart';
+import 'package:food_delivery_kandarbite/service/auth/login_or_register.dart';
 import 'package:food_delivery_kandarbite/components/custom_button.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

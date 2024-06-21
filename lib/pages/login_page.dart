@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:food_delivery_kandarbite/components/custom_button.dart';
 import 'package:food_delivery_kandarbite/components/custom_textfield.dart';
 import 'package:food_delivery_kandarbite/pages/home_page.dart';
+import 'package:food_delivery_kandarbite/service/auth/auth_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPage extends StatefulWidget {
@@ -17,12 +18,21 @@ class _LoginPageState extends State<LoginPage> {
 
   final TextEditingController password = TextEditingController();
 
-  void login() {
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => HomePage(),
-        ));
+  void login() async {
+    final _authService = AuthService();
+    try {
+      await _authService.signInWithEmailPassword(email.text, password.text);
+    } catch (e) {
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text(e.toString()),
+        ),
+      );
+    }
+    // Navigator.of(context).push(MaterialPageRoute(
+      // builder: (context) => HomePage(),
+    // ));
   }
 
   @override

@@ -1,8 +1,27 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:food_delivery_kandarbite/components/receipt.dart';
+import 'package:food_delivery_kandarbite/models/restaurant.dart';
+import 'package:food_delivery_kandarbite/service/database/firestore.dart';
+import 'package:provider/provider.dart';
 
-class DeliveryProgressPage extends StatelessWidget {
+class DeliveryProgressPage extends StatefulWidget {
   const DeliveryProgressPage({super.key});
+
+  @override
+  State<DeliveryProgressPage> createState() => _DeliveryProgressPageState();
+}
+
+class _DeliveryProgressPageState extends State<DeliveryProgressPage> {
+  FirestoreService db = FirestoreService();
+  User? currentUser = FirebaseAuth.instance.currentUser;
+
+  @override
+  void initState() {
+    super.initState();
+    String receipt = context.read<Restaurant>().displayCartReceipt();
+    db.saveOrderToDB(receipt, currentUser!.email ?? "Not attached to a user.");
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -12,10 +31,14 @@ class DeliveryProgressPage extends StatelessWidget {
         title: Text("Delivery in progress"),
         backgroundColor: Colors.transparent,
       ),
-      body: Column(
-        children: [
-          Receipt(),
-        ],
+      body: Center(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Receipt(),
+          ],
+        ),
       ),
     );
   }

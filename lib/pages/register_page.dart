@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery_kandarbite/components/custom_button.dart';
 import 'package:food_delivery_kandarbite/components/custom_textfield.dart';
+import 'package:food_delivery_kandarbite/service/auth/auth_service.dart';
 
 class RegisterPage extends StatefulWidget {
   final Function() onTap;
@@ -18,6 +19,33 @@ class _RegisterPageState extends State<RegisterPage> {
 
   final TextEditingController password = TextEditingController();
   final TextEditingController confirmPassword = TextEditingController();
+
+  void register() async {
+    // Get auth
+    final _authService = AuthService();
+
+    // Check if password match
+    if (password.text == confirmPassword.text) {
+      try {
+        await _authService.signUpWithEmailPassword(email.text, password.text);
+        // Navigator.of(context).pop();
+      } catch (e) {
+        showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: Text(e.toString()),
+          ),
+        );
+      }
+    } else {
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text("Passwords does not match!"),
+        ),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -67,7 +95,11 @@ class _RegisterPageState extends State<RegisterPage> {
               height: 25,
             ),
             // Sign In
-            CustomButton(onTap: () {}, text: "Sign Up"),
+            CustomButton(
+                onTap: () {
+                  register();
+                },
+                text: "Sign Up"),
 
             const SizedBox(
               height: 25,

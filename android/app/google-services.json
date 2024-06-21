@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "861605026472",
+    "project_id": "kandarbite",
+    "storage_bucket": "kandarbite.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:861605026472:android:00fa09cddf64640383809d",
+        "android_client_info": {
+          "package_name": "com.example.food_delivery_kandarbite"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBn5bldAfNmGMqspCdsYLgoPj_XG_w6u9k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

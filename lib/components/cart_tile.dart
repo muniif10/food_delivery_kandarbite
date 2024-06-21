@@ -44,21 +44,22 @@ class CartTile extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(cartItem.food.name),
-                      Text("RM${cartItem.food.price.toString()}")
+                      Text("RM${cartItem.food.price.toString()}"),
+                      const SizedBox(height: 10,),
+                      QuantitySelector(
+                          quantity: cartItem.quantity,
+                          food: cartItem.food,
+                          onIncrement: () {
+                            restaurant.addToCart(
+                                cartItem.food, cartItem.selectedAddons);
+                          },
+                          onDecrement: () {
+                            restaurant.removeFromCart(cartItem);
+                          }), 
                     ],
                   ),
                   Spacer(),
                   // Increment or decrement quantity
-                  QuantitySelector(
-                      quantity: cartItem.quantity,
-                      food: cartItem.food,
-                      onIncrement: () {
-                        restaurant.addToCart(
-                            cartItem.food, cartItem.selectedAddons);
-                      },
-                      onDecrement: () {
-                        restaurant.removeFromCart(cartItem);
-                      }),
                 ],
               ),
             ),

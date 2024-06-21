@@ -14,6 +14,8 @@ class Receipt extends StatelessWidget {
           const Text("Thanks for your order"),
           Container(
             decoration: BoxDecoration(
+              color: Colors.grey[200],
+              boxShadow: [BoxShadow(color: (Colors.grey[300])!,blurRadius: 5,offset: Offset(1, 2))],
               border:
                   Border.all(color: Theme.of(context).colorScheme.secondary),
               borderRadius: BorderRadius.circular(8),
@@ -22,6 +24,7 @@ class Receipt extends StatelessWidget {
             child: Consumer<Restaurant>(
               builder: (context, restaurant, child) => Text(
                 restaurant.displayCartReceipt(),
+                style: TextStyle(color: Colors.black),
               ),
             ),
           ),
