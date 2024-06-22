@@ -14,7 +14,6 @@ class CustomSliverAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SliverAppBar(
-      
       snap: false,
       centerTitle: true,
       expandedHeight: 300,

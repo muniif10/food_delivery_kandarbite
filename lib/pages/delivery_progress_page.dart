@@ -1,7 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:food_delivery_kandarbite/components/receipt.dart';
+import 'package:food_delivery_kandarbite/models/cart_item.dart';
 import 'package:food_delivery_kandarbite/models/restaurant.dart';
+import 'package:food_delivery_kandarbite/pages/home_page.dart';
 import 'package:food_delivery_kandarbite/service/database/firestore.dart';
 import 'package:provider/provider.dart';
 
@@ -27,11 +29,25 @@ class _DeliveryProgressPageState extends State<DeliveryProgressPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: _buildNavigationBar(context),
+      backgroundColor: Theme.of(context).colorScheme.surface.withOpacity(.8),
       appBar: AppBar(
-        title: Text("Delivery in progress"),
+        leading: const SizedBox(),
+        actions: [
+          IconButton(
+              onPressed: () {
+                context.read<Restaurant>().clearCart();
+                Navigator.of(context).pushReplacement(MaterialPageRoute(
+                  builder: (context) => const HomePage(),
+                ));
+              },
+              icon: const Icon(
+                Icons.close,
+              ))
+        ],
+        title: const Text("Delivery in progress"),
         backgroundColor: Colors.transparent,
       ),
-      body: Center(
+      body: const Center(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.start,
@@ -45,7 +61,7 @@ class _DeliveryProgressPageState extends State<DeliveryProgressPage> {
 
   Widget _buildNavigationBar(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(25),
+      padding: const EdgeInsets.all(25),
       height: 120,
       decoration: BoxDecoration(
           color: Theme.of(context).colorScheme.secondary,
@@ -62,10 +78,10 @@ class _DeliveryProgressPageState extends State<DeliveryProgressPage> {
             ),
             child: IconButton(
               onPressed: () {},
-              icon: Icon(Icons.person),
+              icon: const Icon(Icons.person),
             ),
           ),
-          SizedBox(
+          const SizedBox(
             width: 10,
           ),
           // Driver detail
@@ -115,7 +131,7 @@ class _DeliveryProgressPageState extends State<DeliveryProgressPage> {
                 ),
                 child: IconButton(
                   onPressed: () {},
-                  icon: Icon(
+                  icon: const Icon(
                     Icons.phone,
                     color: Colors.green,
                   ),

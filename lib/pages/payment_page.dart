@@ -69,6 +69,7 @@ class _PaymentPageState extends State<PaymentPage> {
           child: Column(
             children: [
               CreditCardWidget(
+                isHolderNameVisible: true,
                 cardHolderName: cardHolderName,
                 cardNumber: cardNumber,
                 cvvCode: cvvCode,

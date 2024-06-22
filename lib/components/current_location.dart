@@ -1,9 +1,40 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class CurrentLocation extends StatelessWidget {
+class CurrentLocation extends StatefulWidget {
   const CurrentLocation({super.key});
 
+  @override
+  State<CurrentLocation> createState() => _CurrentLocationState();
+}
+
+class _CurrentLocationState extends State<CurrentLocation> {
+  void setLocation(String newLocation) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString("locationString", newLocation);
+    setState(() {
+      location = newLocation;
+    });
+  }
+
+  void loadString() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    String locationOrNot = prefs.getString("locationString") ?? location;
+    setState(() {
+      location = locationOrNot;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    loadString();
+  }
+
+  String location =
+      "Menara LGB, Level 16, 1, Jalan Wan Kadir, Taman Tun Dr Ismail, 60000 Kuala Lumpur";
   void openLocationSearchBox(BuildContext ctx) {
+    TextEditingController addressController = TextEditingController();
     showDialog(
       context: ctx,
       builder: (context) => AlertDialog(
@@ -16,12 +47,14 @@ class CurrentLocation extends StatelessWidget {
           MaterialButton(
             onPressed: () {
               Navigator.of(context).pop();
+              setLocation(addressController.text);
             },
             child: const Text("Submit"),
           )
         ],
         title: const Text("Your location"),
-        content: const TextField(
+        content: TextField(
+          controller: addressController,
           decoration: InputDecoration(hintText: "Search address..."),
         ),
       ),
@@ -48,7 +81,7 @@ class CurrentLocation extends StatelessWidget {
                 // Address
                 Flexible(
                   child: Text(
-                    "Menara LGB, Level 16, 1, Jalan Wan Kadir, Taman Tun Dr Ismail, 60000 Kuala Lumpur",
+                    location,
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       color: Theme.of(context).colorScheme.inversePrimary,

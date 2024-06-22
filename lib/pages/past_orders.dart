@@ -23,8 +23,10 @@ class _PastOrdersPageState extends State<PastOrdersPage> {
     User? currentUser = FirebaseAuth.instance.currentUser;
     final CollectionReference orders =
         FirebaseFirestore.instance.collection("orders");
-    QuerySnapshot ordersObtained =
-        await orders.where('user', isEqualTo: currentUser?.email ?? "").get();
+    QuerySnapshot ordersObtained = await orders
+        .where('user', isEqualTo: currentUser?.email ?? "")
+        .limit(5)
+        .get();
     List<QueryDocumentSnapshot> docs = ordersObtained.docs;
     var result = docs.map((doc) => doc.data() as Map<String, dynamic>).toList();
     setState(() {
@@ -42,7 +44,7 @@ class _PastOrdersPageState extends State<PastOrdersPage> {
           ),
           centerTitle: true,
         ),
-        body: ListView.builder(
+        body: pastOrders.isEmpty? Center(child: Text("No past orders.")) : ListView.builder(
           itemBuilder: (context, index) {
             Map<String, dynamic> receipt = pastOrders[index];
             final Timestamp timestamp = receipt['date'] as Timestamp;

@@ -40,7 +40,7 @@ class Menu_Source {
           ]),
       Food(
           name: "Milo",
-          description: "Air milo, apa lagi hang nak poen",
+          description: "Air milo, sedap.",
           imagePath: "lib/assets/images/drinks/milo_ais.jpeg",
           price: 3,
           category: FoodCategory.minuman,
