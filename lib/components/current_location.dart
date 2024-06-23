@@ -55,7 +55,7 @@ class _CurrentLocationState extends State<CurrentLocation> {
         title: const Text("Your location"),
         content: TextField(
           controller: addressController,
-          decoration: InputDecoration(hintText: "Search address..."),
+          decoration: const InputDecoration(hintText: "Search address..."),
         ),
       ),
     );

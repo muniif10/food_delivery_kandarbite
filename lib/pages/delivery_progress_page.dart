@@ -1,7 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:food_delivery_kandarbite/components/receipt.dart';
-import 'package:food_delivery_kandarbite/models/cart_item.dart';
 import 'package:food_delivery_kandarbite/models/restaurant.dart';
 import 'package:food_delivery_kandarbite/pages/home_page.dart';
 import 'package:food_delivery_kandarbite/service/database/firestore.dart';
@@ -17,43 +16,72 @@ class DeliveryProgressPage extends StatefulWidget {
 class _DeliveryProgressPageState extends State<DeliveryProgressPage> {
   FirestoreService db = FirestoreService();
   User? currentUser = FirebaseAuth.instance.currentUser;
+  int userCurrentPoints = 0;
+
+  int gainedPoints = 0;
 
   @override
   void initState() {
     super.initState();
     String receipt = context.read<Restaurant>().displayCartReceipt();
     db.saveOrderToDB(receipt, currentUser!.email ?? "Not attached to a user.");
+    getPointsFromDB();
+    setState(() {
+      gainedPoints = (context.read<Restaurant>().getTotalPrice() * 0.2).toInt();
+    });
+    addPointsToDB(gainedPoints);
+  }
+
+  void getPointsFromDB() async {
+    FirestoreService db = FirestoreService();
+    User? currentUser = FirebaseAuth.instance.currentUser;
+    int currentPoints = await db.getPoints(currentUser?.email ?? "");
+    setState(() {
+      userCurrentPoints = currentPoints;
+    });
+  }
+
+  void addPointsToDB(int pointToAdd) async {
+    FirestoreService db = FirestoreService();
+    User? currentUser = FirebaseAuth.instance.currentUser;
+    int currentPoints = await db.getPoints(currentUser?.email ?? "");
+    await db.createOrUpdatePoints(
+        currentPoints + pointToAdd, currentUser?.email ?? "");
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      bottomNavigationBar: _buildNavigationBar(context),
-      backgroundColor: Theme.of(context).colorScheme.surface.withOpacity(.8),
-      appBar: AppBar(
-        leading: const SizedBox(),
-        actions: [
-          IconButton(
-              onPressed: () {
-                context.read<Restaurant>().clearCart();
-                Navigator.of(context).pushReplacement(MaterialPageRoute(
-                  builder: (context) => const HomePage(),
-                ));
-              },
-              icon: const Icon(
-                Icons.close,
-              ))
-        ],
-        title: const Text("Delivery in progress"),
-        backgroundColor: Colors.transparent,
-      ),
-      body: const Center(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Receipt(),
+    return PopScope(
+      canPop: false,
+      child: Scaffold(
+        bottomNavigationBar: _buildNavigationBar(context),
+        backgroundColor: Theme.of(context).colorScheme.surface.withOpacity(.8),
+        appBar: AppBar(
+          leading: const SizedBox(),
+          actions: [
+            IconButton(
+                onPressed: () {
+                  context.read<Restaurant>().clearCart();
+                  Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => const HomePage(),
+                  ));
+                },
+                icon: const Icon(
+                  Icons.close,
+                ))
           ],
+          title: const Text("Delivery in progress"),
+          backgroundColor: Colors.transparent,
+        ),
+        body: Center(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              const Receipt(),
+              Text("You gained $gainedPoints points from your order."),
+            ],
+          ),
         ),
       ),
     );

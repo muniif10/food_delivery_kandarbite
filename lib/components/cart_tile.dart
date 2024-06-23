@@ -58,7 +58,7 @@ class CartTile extends StatelessWidget {
                           }), 
                     ],
                   ),
-                  Spacer(),
+                  const Spacer(),
                   // Increment or decrement quantity
                 ],
               ),
@@ -79,7 +79,7 @@ class CartTile extends StatelessWidget {
                             label: Row(
                               children: [
                                 Text(addon.name),
-                                Text(' RM' + addon.price.toString()),
+                                Text(' RM${addon.price}'),
                               ],
                             ),
                             shape: StadiumBorder(

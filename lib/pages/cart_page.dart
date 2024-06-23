@@ -77,11 +77,11 @@ class CartPage extends StatelessWidget {
               CustomButton(
                   onTap: () {
                     Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => PaymentPage(),
+                      builder: (context) => const PaymentPage(),
                     ));
                   },
                   text: "Go to checkout"),
-              SizedBox(
+              const SizedBox(
                 height: 25,
               ),
             ],

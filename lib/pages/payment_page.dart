@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_credit_card/flutter_credit_card.dart';
 import 'package:food_delivery_kandarbite/components/custom_button.dart';
 import 'package:food_delivery_kandarbite/pages/delivery_progress_page.dart';
@@ -31,17 +30,17 @@ class _PaymentPageState extends State<PaymentPage> {
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
-                child: Text("No")),
+                child: const Text("No")),
             TextButton(
                 onPressed: () {
                   Navigator.pop(context);
-                  Navigator.of(context).push(MaterialPageRoute(
+                  Navigator.of(context).pushReplacement(MaterialPageRoute(
                     builder: (context) => const DeliveryProgressPage(),
                   ));
                 },
-                child: Text("Yes")),
+                child: const Text("Yes")),
           ],
-          title: Text("Confirm payment"),
+          title: const Text("Confirm payment"),
           content: SingleChildScrollView(
             child: ListBody(
               children: [
@@ -63,7 +62,7 @@ class _PaymentPageState extends State<PaymentPage> {
       builder: (context, value, child) => Scaffold(
         // resizeToAvoidBottomInset: false,
         appBar: AppBar(
-          title: Text("Checkout"),
+          title: const Text("Checkout"),
         ),
         body: SingleChildScrollView(
           child: Column(
@@ -91,7 +90,7 @@ class _PaymentPageState extends State<PaymentPage> {
                     });
                   },
                   formKey: formKey),
-              SizedBox(
+              const SizedBox(
                 height: 25,
               ),
               CustomButton(
@@ -99,7 +98,7 @@ class _PaymentPageState extends State<PaymentPage> {
                     userTappedPay();
                   },
                   text: "Pay now"),
-              SizedBox(
+              const SizedBox(
                 height: 25,
               ),
             ],

@@ -11,7 +11,7 @@ class SettingPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Settings"),
+        title: const Text("Settings"),
       ),
       backgroundColor: Theme.of(context).colorScheme.surface,
       body: Column(
@@ -22,7 +22,7 @@ class SettingPage extends StatelessWidget {
               borderRadius: BorderRadius.circular(12),
             ),
             padding: const EdgeInsets.all(15),
-            margin: EdgeInsets.only(
+            margin: const EdgeInsets.only(
               left: 25,
               top: 10,
               right: 25,

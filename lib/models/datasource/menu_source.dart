@@ -1,8 +1,8 @@
 import 'package:food_delivery_kandarbite/models/food.dart';
 
-class Menu_Source {
+class MenuSource {
   List<Food> getMenu() {
-    final List<Food> _menu = [
+    final List<Food> menu = [
       // nasi
       Food(
           name: "Nasi Kandar Padu",
@@ -49,6 +49,6 @@ class Menu_Source {
             Addon(name: "Mangkuk", price: 1),
           ]),
     ];
-    return _menu;
+    return menu;
   }
 }

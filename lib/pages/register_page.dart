@@ -22,15 +22,16 @@ class _RegisterPageState extends State<RegisterPage> {
 
   void register() async {
     // Get auth
-    final _authService = AuthService();
+    final authService = AuthService();
 
     // Check if password match
     if (password.text == confirmPassword.text) {
       try {
-        await _authService.signUpWithEmailPassword(email.text, password.text);
+        await authService.signUpWithEmailPassword(email.text, password.text);
         // Navigator.of(context).pop();
       } catch (e) {
         showDialog(
+          // ignore: use_build_context_synchronously
           context: context,
           builder: (context) => AlertDialog(
             title: Text(e.toString()),
@@ -40,7 +41,7 @@ class _RegisterPageState extends State<RegisterPage> {
     } else {
       showDialog(
         context: context,
-        builder: (context) => AlertDialog(
+        builder: (context) => const AlertDialog(
           title: Text("Passwords does not match!"),
         ),
       );
@@ -60,7 +61,7 @@ class _RegisterPageState extends State<RegisterPage> {
               size: 72,
               color: Theme.of(context).colorScheme.inversePrimary,
             ),
-            SizedBox(
+            const SizedBox(
               height: 25,
             ),
             Text(

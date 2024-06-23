@@ -15,6 +15,14 @@ class PastOrderTile extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
+        decoration: BoxDecoration(
+            color: Theme.of(context).colorScheme.secondary,
+            borderRadius: const BorderRadius.only(
+              topLeft: Radius.circular(40),
+              topRight: Radius.circular(40),
+              bottomLeft: Radius.circular(10),
+              bottomRight: Radius.circular(10),
+            )),
         child: Column(
           mainAxisSize: MainAxisSize.max,
           children: [
@@ -27,7 +35,7 @@ class PastOrderTile extends StatelessWidget {
             ),
             Container(
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.only(bottomLeft: Radius.circular(10),bottomRight: Radius.circular(10)),
+                borderRadius: const BorderRadius.only(bottomLeft: Radius.circular(10),bottomRight: Radius.circular(10)),
                 color: Theme.of(context).colorScheme.surface,
               ),
               width: double.infinity,
@@ -38,14 +46,6 @@ class PastOrderTile extends StatelessWidget {
             ),
           ],
         ),
-        decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.secondary,
-            borderRadius: const BorderRadius.only(
-              topLeft: Radius.circular(40),
-              topRight: Radius.circular(40),
-              bottomLeft: Radius.circular(10),
-              bottomRight: Radius.circular(10),
-            )),
       ),
     );
   }

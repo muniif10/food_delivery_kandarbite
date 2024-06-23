@@ -9,13 +9,11 @@ class CustomDescriptionBox extends StatelessWidget {
       color: Theme.of(context).colorScheme.inversePrimary,
     );
     var mySecondaryStyle = TextStyle(
-      color: Theme.of(context).colorScheme.primary,
-      fontWeight: FontWeight.bold
-
-    );
+        color: Theme.of(context).colorScheme.primary,
+        fontWeight: FontWeight.bold);
     return Container(
-      margin: EdgeInsets.only(left: 25, right: 25, bottom: 25),
-      padding: EdgeInsets.all(25),
+      margin: const EdgeInsets.only(left: 25, right: 25, bottom: 25),
+      padding: const EdgeInsets.all(25),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8),
           border: Border.all(

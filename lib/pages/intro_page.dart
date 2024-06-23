@@ -9,7 +9,7 @@ class IntroPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFF002358),
+      backgroundColor: const Color(0xFF002358),
       body: Padding(
         padding: const EdgeInsets.all(25.0),
         child: Column(
@@ -18,7 +18,7 @@ class IntroPage extends StatelessWidget {
             const SizedBox(height: 35),
 
             // Restaurant Name
-            Text(
+            const Text(
               "KandarBite",
               style: TextStyle(
                 fontFamily: 'Serif',
@@ -37,7 +37,7 @@ class IntroPage extends StatelessWidget {
             ),
 
             // Subtitle
-            Text(
+            const Text(
               "KandarBite offers you the greatest Mamak food by fusing convenience with tradition. With KandarBite, experience the true taste of Malaysia.",
               textAlign: TextAlign.center,
               style: TextStyle(
@@ -55,6 +55,7 @@ class IntroPage extends StatelessWidget {
               onTap: () async {
                 SharedPreferences prefs = await SharedPreferences.getInstance();
                 prefs.setBool("isFirstTime", false);
+                // ignore: use_build_context_synchronously
                 Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) => const LoginOrRegister(),
                 ));
@@ -68,7 +69,7 @@ class IntroPage extends StatelessWidget {
 }
 
 void main() {
-  runApp(MaterialApp(
+  runApp(const MaterialApp(
     home: IntroPage(),
   ));
 }

@@ -1,7 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:food_delivery_kandarbite/service/auth/auth_gate.dart';
-import 'package:food_delivery_kandarbite/service/auth/login_or_register.dart';
 import 'package:food_delivery_kandarbite/firebase_options.dart';
 import 'package:food_delivery_kandarbite/models/restaurant.dart';
 import 'package:food_delivery_kandarbite/pages/intro_page.dart';

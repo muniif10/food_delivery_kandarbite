@@ -1,1 +1,4 @@
+analyzer:
+  errors:
+    must_be_immutable: ignore # Remember that I made this decision
 include: package:flutter_lints/flutter.yaml

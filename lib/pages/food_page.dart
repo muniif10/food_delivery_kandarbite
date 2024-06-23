@@ -1,4 +1,3 @@
-import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import 'package:food_delivery_kandarbite/components/custom_button.dart';
@@ -178,15 +177,15 @@ class _FoodPageState extends State<FoodPage> {
           child: Opacity(
             opacity: 0.6,
             child: Container(
-              margin: EdgeInsets.only(left: 25),
+              margin: const EdgeInsets.only(left: 25),
+              decoration: BoxDecoration(
+                  color: Theme.of(context).colorScheme.secondary,
+                  shape: BoxShape.circle),
               child: IconButton(
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
-                  icon: Icon(Icons.arrow_back)),
-              decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.secondary,
-                  shape: BoxShape.circle),
+                  icon: const Icon(Icons.arrow_back)),
             ),
           ),
         )

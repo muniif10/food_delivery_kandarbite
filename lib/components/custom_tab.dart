@@ -18,12 +18,9 @@ class CustomTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      // color: Theme.of(context).colorScheme.surface,
-      child: TabBar(
-        tabs: _buildCategoryTab(),
-        controller: tabController,
-      ),
+    return TabBar(
+      tabs: _buildCategoryTab(),
+      controller: tabController,
     );
   }
 }

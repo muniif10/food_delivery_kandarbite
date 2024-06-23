@@ -8,7 +8,7 @@ import 'package:intl/intl.dart';
 class Restaurant extends ChangeNotifier {
   // List of food menu
 
-  final List<Food> _menu = Menu_Source().getMenu();
+  final List<Food> _menu = MenuSource().getMenu();
 
 // Operations
 
@@ -27,7 +27,7 @@ class Restaurant extends ChangeNotifier {
       bool isSameFood = item.food == food;
       // check if selected addon same
       bool isSameAddon =
-          ListEquality().equals(item.selectedAddons, selectedAddons);
+          const ListEquality().equals(item.selectedAddons, selectedAddons);
 
       return isSameFood && isSameAddon;
     });

@@ -68,16 +68,16 @@ class _HomePageState extends State<HomePage>
       body: NestedScrollView(
         headerSliverBuilder: (context, innerBoxIsScrolled) => [
           CustomSliverAppBar(
+            title: CustomTab(tabController: _tabController),
             child: const Column(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 // Current Location
-                const CurrentLocation(),
+                 CurrentLocation(),
                 // Description Box
                 CustomDescriptionBox(),
               ],
             ),
-            title: CustomTab(tabController: _tabController),
           )
         ],
         body: Consumer<Restaurant>(

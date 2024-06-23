@@ -19,4 +19,42 @@ class FirestoreService {
     List<QueryDocumentSnapshot> docs = ordersObtained.docs;
     return docs.map((doc) => doc.data() as Map<String, String>).toList();
   }
+
+  Future<int> getPoints(String username) async {
+    final DocumentReference points =
+        FirebaseFirestore.instance.collection("userData").doc(username);
+
+    try {
+      final DocumentSnapshot currentPoints =
+          await points.get(const GetOptions(source: Source.server));
+      if (currentPoints.exists) {
+        var data = currentPoints.data() as Map<String, dynamic>?;
+        if (data != null && data.containsKey("points")) {
+          return data["points"] as int;
+        }
+      }
+      return 0; // Return 0 if document does not exist or if points field is missing
+    } catch (e) {
+      return -1; // Return -1 in case of an error
+    }
+  }
+
+  Future<void> createOrUpdatePoints(int point, String username) async {
+    final DocumentReference points =
+        FirebaseFirestore.instance.collection("userData").doc(username);
+
+    try {
+      final DocumentSnapshot docSnapshot = await points.get();
+      if (docSnapshot.exists) {
+        await points.update({'points': point});
+      } else {
+        await points.set({'points': point});
+      }
+    // ignore: empty_catches
+    } catch (e) {
+    }
+  }
+
+
+  
 }

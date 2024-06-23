@@ -44,7 +44,7 @@ class _PastOrdersPageState extends State<PastOrdersPage> {
           ),
           centerTitle: true,
         ),
-        body: pastOrders.isEmpty? Center(child: Text("No past orders.")) : ListView.builder(
+        body: pastOrders.isEmpty? const Center(child: Text("No past orders.")) : ListView.builder(
           itemBuilder: (context, index) {
             Map<String, dynamic> receipt = pastOrders[index];
             final Timestamp timestamp = receipt['date'] as Timestamp;
