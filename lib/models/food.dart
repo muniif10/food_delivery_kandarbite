@@ -29,4 +29,5 @@ class Addon {
 enum FoodCategory {
   nasi,
   minuman,
+  roti
 }

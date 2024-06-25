@@ -30,7 +30,7 @@ class FoodTile extends StatelessWidget {
                         style: const TextStyle(fontWeight: FontWeight.bold),
                       ),
                       Text(
-                        "RM ${food.price.toString()}",
+                        "RM ${food.price.toStringAsFixed(2)}",
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
                             color: Theme.of(context).colorScheme.primary),

@@ -68,7 +68,7 @@ class _FoodPageState extends State<FoodPage> {
                           Padding(
                             padding: const EdgeInsets.only(right: 8.0),
                             child: Text(
-                              'RM ${widget.food.price}',
+                              'RM ${widget.food.price.toStringAsFixed(2)}',
                               style: TextStyle(
                                   fontSize: 16,
                                   color: Theme.of(context).colorScheme.primary),
@@ -84,7 +84,7 @@ class _FoodPageState extends State<FoodPage> {
                                   padding: const EdgeInsets.only(
                                       right: 8.0, left: 8),
                                   child: Text(
-                                    "+ RM$addonTotal",
+                                    "+ RM${addonTotal.toStringAsFixed(2)}",
                                     style: TextStyle(
                                         color: Theme.of(context)
                                             .colorScheme
@@ -141,7 +141,7 @@ class _FoodPageState extends State<FoodPage> {
                               return CheckboxListTile(
                                 title: Text(addon.name),
                                 subtitle: Text(
-                                  'RM${addon.price.toString()}',
+                                  'RM${addon.price.toStringAsFixed(2)}',
                                   style: TextStyle(
                                     color:
                                         Theme.of(context).colorScheme.primary,

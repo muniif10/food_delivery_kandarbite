@@ -74,13 +74,15 @@ class CartPage extends StatelessWidget {
                   ],
                 ),
               ),
-              CustomButton(
-                  onTap: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => const PaymentPage(),
-                    ));
-                  },
-                  text: "Go to checkout"),
+              userCart.isEmpty
+                  ? const SizedBox()
+                  : CustomButton(
+                      onTap: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => const PaymentPage(),
+                        ));
+                      },
+                      text: "Go to checkout"),
               const SizedBox(
                 height: 25,
               ),

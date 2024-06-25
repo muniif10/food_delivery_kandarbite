@@ -35,6 +35,7 @@ flutter:
   assets:
   - lib/assets/images/nasi/
   - lib/assets/images/drinks/
+  - lib/assets/images/roti/
   - lib/assets/images/
 
 

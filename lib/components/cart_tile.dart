@@ -44,7 +44,7 @@ class CartTile extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(cartItem.food.name),
-                      Text("RM${cartItem.food.price.toString()}"),
+                      Text("RM${cartItem.food.price.toStringAsFixed(2)}"),
                       const SizedBox(height: 10,),
                       QuantitySelector(
                           quantity: cartItem.quantity,

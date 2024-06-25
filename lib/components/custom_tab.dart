@@ -18,7 +18,7 @@ class CustomTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TabBar(
+    return TabBar(labelStyle: TextStyle(fontSize: 12),
       tabs: _buildCategoryTab(),
       controller: tabController,
     );
