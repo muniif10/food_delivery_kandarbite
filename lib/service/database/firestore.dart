@@ -1,15 +1,52 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:food_delivery_kandarbite/models/cart_item.dart';
 
 class FirestoreService {
   //get colelction of order
   final CollectionReference orders =
       FirebaseFirestore.instance.collection("orders");
   // save order to db
-  Future<void> saveOrderToDB(String receipt, String username) async {
+  Future<void> saveOrderToDB(
+      String receipt, String username, List<CartItem> cart) async {
+    List<Map<String, dynamic>> cartItemsMap =
+        cart.map((item) => item.toMap()).toList();
     await orders.add({
       'date': DateTime.now(),
       'order': receipt,
       'user': username,
+      'order_detailed': cartItemsMap,
+    });
+  }
+
+  Future<List<CartItem>> getOrderFromDBRich(String username) async {
+    final DocumentReference orders =
+        FirebaseFirestore.instance.collection("orders_record").doc(username);
+
+    DocumentSnapshot docSnapshot = await orders.get();
+
+    if (docSnapshot.exists) {
+      Map<String, dynamic> data = docSnapshot.data() as Map<String, dynamic>;
+      List<dynamic> cartItemsData = data['cartItems'];
+
+      List<CartItem> cartItems =
+          cartItemsData.map((item) => CartItem.fromMap(item)).toList();
+      return cartItems;
+    } else {
+      return [];
+    }
+  }
+
+  // Save Order Richly
+  Future<void> saveOrderToDBRich(List<CartItem> cart, String username) async {
+    final DocumentReference orders =
+        FirebaseFirestore.instance.collection("orders_record").doc(username);
+    List<Map<String, dynamic>> cartItemsMap =
+        cart.map((item) => item.toMap()).toList();
+
+    // Wrap the list in a map
+    await orders.set({
+      'date': DateTime.now().toString(),
+      'cartItems': cartItemsMap,
     });
   }
 
@@ -50,11 +87,7 @@ class FirestoreService {
       } else {
         await points.set({'points': point});
       }
-    // ignore: empty_catches
-    } catch (e) {
-    }
+      // ignore: empty_catches
+    } catch (e) {}
   }
-
-
-  
 }

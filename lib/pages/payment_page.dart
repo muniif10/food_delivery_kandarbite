@@ -95,7 +95,9 @@ class _PaymentPageState extends State<PaymentPage> {
               ),
               CustomButton(
                   onTap: () {
-                    userTappedPay();
+                    // userTappedPay();
+                    Navigator.of(context).pushReplacement(MaterialPageRoute(
+                        builder: (context) => const DeliveryProgressPage()));
                   },
                   text: "Pay now"),
               const SizedBox(

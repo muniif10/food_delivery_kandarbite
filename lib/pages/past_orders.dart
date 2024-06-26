@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:food_delivery_kandarbite/components/past_order_tile.dart';
+import 'package:food_delivery_kandarbite/models/cart_item.dart';
 import 'package:intl/intl.dart';
 
 class PastOrdersPage extends StatefulWidget {
@@ -13,6 +14,7 @@ class PastOrdersPage extends StatefulWidget {
 
 class _PastOrdersPageState extends State<PastOrdersPage> {
   List<Map<String, dynamic>> pastOrders = [];
+
   @override
   void initState() {
     super.initState();
@@ -82,8 +84,23 @@ class _PastOrdersPageState extends State<PastOrdersPage> {
                   final DateTime dateTime = timestamp.toDate();
                   final dateString =
                       DateFormat('E h:mm a  d/M/y').format(dateTime);
+                  // CartItem.fromMap(pastOrders[index]['order_detailed']);
+                  // List<CartItem> foodDetail =
+                  // print(CartItem.fromMap(pastOrders[index]['order_detailed'][0]));
+                  List<dynamic> orderDetailed =
+                      pastOrders[index]['order_detailed'];
+                  List<CartItem> cartDetails = orderDetailed.map((item) {
+                    return CartItem.fromMap(item);
+                  }).toList();
+                  print(cartDetails.length);
+                  print(pastOrders[index]['order_detailed']);
+                  // List<dynamic> cartDetails =
+                  //     pastOrders[index]['order_detailed'];
                   return PastOrderTile(
-                      dateString: dateString, receipt: receipt);
+                    dateString: dateString,
+                    receipt: receipt,
+                    cartDetail: cartDetails,
+                  );
                 },
                 itemCount: pastOrders.length,
                 padding: const EdgeInsets.all(25),

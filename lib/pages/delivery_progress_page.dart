@@ -24,7 +24,8 @@ class _DeliveryProgressPageState extends State<DeliveryProgressPage> {
   void initState() {
     super.initState();
     String receipt = context.read<Restaurant>().displayCartReceipt();
-    db.saveOrderToDB(receipt, currentUser!.email ?? "Not attached to a user.");
+    db.saveOrderToDB(receipt, currentUser!.email ?? "Not attached to a user.",
+        context.read<Restaurant>().cart);
     getPointsFromDB();
     setState(() {
       gainedPoints = (context.read<Restaurant>().getTotalPrice() * 0.2).toInt();

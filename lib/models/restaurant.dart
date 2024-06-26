@@ -13,11 +13,19 @@ class Restaurant extends ChangeNotifier {
 // Operations
 
 // User Cart
-  final List<CartItem> _cart = [];
+  List<CartItem> _cart = [];
   List<CartItem> get cart => _cart;
+
+  void replaceCart(List<CartItem> newCart) {
+    _cart = newCart;
+  }
 
 // Getters
   List<Food> get menu => _menu;
+
+  // void replaceCart(List<CartItem> newCart) {
+  //   _cart = newCart;
+  // }
 
 // Add to cart
   void addToCart(Food food, List<Addon> selectedAddons) {
