@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 class SettingPage extends StatelessWidget {
   const SettingPage({super.key});
   final SnackBar snackbar =
-      const SnackBar(content: Text("This setting does nothing, sorry."));
+      const SnackBar(content: Text("This setting does nothing, sorry.",style: TextStyle(color: Colors.black),));
 
   @override
   Widget build(BuildContext context) {

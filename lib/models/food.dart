@@ -63,9 +63,9 @@ class Addon {
 }
 
 enum FoodCategory {
-  nasi,
-  minuman,
-  roti,
+  rice,
+  drinks,
+  breads,
 }
 
 extension FoodCategoryExtension on FoodCategory {

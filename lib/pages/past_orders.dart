@@ -67,7 +67,7 @@ class _PastOrdersPageState extends State<PastOrdersPage> {
                   clearAllPastOrder();
                   getPastOrders();
                 },
-                icon: Icon(Icons.delete))
+                icon: const Icon(Icons.delete))
           ],
           title: Text(
             "Past Orders",
@@ -92,8 +92,8 @@ class _PastOrdersPageState extends State<PastOrdersPage> {
                   List<CartItem> cartDetails = orderDetailed.map((item) {
                     return CartItem.fromMap(item);
                   }).toList();
-                  print(cartDetails.length);
-                  print(pastOrders[index]['order_detailed']);
+                  // print(cartDetails.length);
+                  // print(pastOrders[index]['order_detailed']);
                   // List<dynamic> cartDetails =
                   //     pastOrders[index]['order_detailed'];
                   return PastOrderTile(

@@ -95,9 +95,10 @@ class _PaymentPageState extends State<PaymentPage> {
               ),
               CustomButton(
                   onTap: () {
-                    // userTappedPay();
-                    Navigator.of(context).pushReplacement(MaterialPageRoute(
-                        builder: (context) => const DeliveryProgressPage()));
+                    showDialog(
+                      context: context,
+                      builder: (context) => FullScreenImage(yea: userTappedPay),
+                    );
                   },
                   text: "Pay now"),
               const SizedBox(
@@ -106,6 +107,56 @@ class _PaymentPageState extends State<PaymentPage> {
             ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+class FullScreenImage extends StatelessWidget {
+  const FullScreenImage({super.key, required this.yea});
+  final Function yea;
+  @override
+  Widget build(BuildContext context) {
+    return Dialog(
+      backgroundColor: Colors.transparent,
+      insetPadding: EdgeInsets.all(0),
+      child: Stack(
+        children: [
+          // Full screen image
+          Positioned.fill(
+            child: Image.asset(
+              'lib/assets/images/ads.jpg', // Replace with your image URL
+              fit: BoxFit.fitWidth,
+            ),
+          ),
+          // Close button
+          Positioned(
+            top: 40,
+            right: 20,
+            child: GestureDetector(
+              onTap: () {
+                Navigator.of(context).pop();
+                yea();
+                Navigator.of(context).pushReplacement(MaterialPageRoute(
+                    builder: (context) => const DeliveryProgressPage()));
+              },
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.black.withOpacity(0.5),
+                  shape: BoxShape.circle,
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Icon(
+                    Icons.close,
+                    color: Colors.white,
+                    size: 30,
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
