@@ -4,10 +4,15 @@ import 'package:food_delivery_kandarbite/models/cart_item.dart';
 import 'package:food_delivery_kandarbite/models/restaurant.dart';
 import 'package:provider/provider.dart';
 
-class CartTile extends StatelessWidget {
+class CartTile extends StatefulWidget {
   const CartTile({super.key, required this.cartItem});
   final CartItem cartItem;
 
+  @override
+  State<CartTile> createState() => _CartTileState();
+}
+
+class _CartTileState extends State<CartTile> {
   @override
   Widget build(BuildContext context) {
     return Consumer<Restaurant>(
@@ -31,7 +36,7 @@ class CartTile extends StatelessWidget {
                   ClipRRect(
                     borderRadius: BorderRadius.circular(8),
                     child: Image.asset(
-                      cartItem.food.imagePath,
+                      widget.cartItem.food.imagePath,
                       width: 100,
                       height: 100,
                     ),
@@ -43,19 +48,22 @@ class CartTile extends StatelessWidget {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(cartItem.food.name),
-                      Text("RM${cartItem.food.price.toStringAsFixed(2)}"),
-                      const SizedBox(height: 10,),
+                      Text(widget.cartItem.food.name),
+                      Text(
+                          "RM${widget.cartItem.food.price.toStringAsFixed(2)}"),
+                      const SizedBox(
+                        height: 10,
+                      ),
                       QuantitySelector(
-                          quantity: cartItem.quantity,
-                          food: cartItem.food,
+                          quantity: widget.cartItem.quantity,
+                          food: widget.cartItem.food,
                           onIncrement: () {
-                            restaurant.addToCart(
-                                cartItem.food, cartItem.selectedAddons);
+                            restaurant.addToCart(widget.cartItem.food,
+                                widget.cartItem.selectedAddons);
                           },
                           onDecrement: () {
-                            restaurant.removeFromCart(cartItem);
-                          }), 
+                            restaurant.removeFromCart(widget.cartItem);
+                          }),
                     ],
                   ),
                   const Spacer(),
@@ -64,7 +72,7 @@ class CartTile extends StatelessWidget {
               ),
             ),
             SizedBox(
-              height: cartItem.selectedAddons.isEmpty ? 0 : 60,
+              height: widget.cartItem.selectedAddons.isEmpty ? 0 : 60,
               child: ListView(
                 padding: const EdgeInsets.only(
                   left: 10,
@@ -72,7 +80,7 @@ class CartTile extends StatelessWidget {
                   right: 10,
                 ),
                 scrollDirection: Axis.horizontal,
-                children: cartItem.selectedAddons
+                children: widget.cartItem.selectedAddons
                     .map((addon) => Padding(
                           padding: const EdgeInsets.only(right: 8.0),
                           child: FilterChip(
@@ -86,7 +94,30 @@ class CartTile extends StatelessWidget {
                                 side: BorderSide(
                               color: Theme.of(context).colorScheme.primary,
                             )),
-                            onSelected: (value) {},
+                            onSelected: (value) {
+                              showDialog(
+                                context: context,
+                                builder: (context) => AlertDialog(
+                                  title:
+                                      Text("Do you want delete this add-on?"),
+                                  actions: [
+                                    TextButton(
+                                        onPressed: () {
+                                          Navigator.pop(context);
+                                        },
+                                        child: Text("No")),
+                                    TextButton(
+                                        onPressed: () {
+                                          widget.cartItem.selectedAddons
+                                              .remove(addon);
+                                          Navigator.pop(context);
+                                          setState(() {});
+                                        },
+                                        child: Text("Yes"))
+                                  ],
+                                ),
+                              );
+                            },
                             backgroundColor:
                                 Theme.of(context).colorScheme.secondary,
                             labelStyle: TextStyle(

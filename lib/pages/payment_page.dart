@@ -34,9 +34,10 @@ class _PaymentPageState extends State<PaymentPage> {
             TextButton(
                 onPressed: () {
                   Navigator.pop(context);
-                  Navigator.of(context).pushReplacement(MaterialPageRoute(
-                    builder: (context) => const DeliveryProgressPage(),
-                  ));
+                  showDialog(
+                    context: context,
+                    builder: (context) => FullScreenImage(),
+                  );
                 },
                 child: const Text("Yes")),
           ],
@@ -95,10 +96,7 @@ class _PaymentPageState extends State<PaymentPage> {
               ),
               CustomButton(
                   onTap: () {
-                    showDialog(
-                      context: context,
-                      builder: (context) => FullScreenImage(yea: userTappedPay),
-                    );
+                    userTappedPay();
                   },
                   text: "Pay now"),
               const SizedBox(
@@ -113,13 +111,12 @@ class _PaymentPageState extends State<PaymentPage> {
 }
 
 class FullScreenImage extends StatelessWidget {
-  const FullScreenImage({super.key, required this.yea});
-  final Function yea;
+  const FullScreenImage({super.key});
   @override
   Widget build(BuildContext context) {
     return Dialog(
       backgroundColor: Colors.transparent,
-      insetPadding: EdgeInsets.all(0),
+      insetPadding: const EdgeInsets.all(0),
       child: Stack(
         children: [
           // Full screen image
@@ -136,7 +133,6 @@ class FullScreenImage extends StatelessWidget {
             child: GestureDetector(
               onTap: () {
                 Navigator.of(context).pop();
-                yea();
                 Navigator.of(context).pushReplacement(MaterialPageRoute(
                     builder: (context) => const DeliveryProgressPage()));
               },
@@ -145,8 +141,8 @@ class FullScreenImage extends StatelessWidget {
                   color: Colors.black.withOpacity(0.5),
                   shape: BoxShape.circle,
                 ),
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
+                child: const Padding(
+                  padding: EdgeInsets.all(8.0),
                   child: Icon(
                     Icons.close,
                     color: Colors.white,
